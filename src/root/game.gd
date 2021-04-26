@@ -26,10 +26,10 @@ func _on_body_exited_exit(body):
 	if body.name == "Player": is_player_inside = false
 	if body.name == "Treasure": is_treasure_inside = false
 
-func change_level_to(path):
+func change_level_to(path, with_transition = true):
 	_unload_level()
 	yield(self, "unload_done")
-	_load_level(path)
+	_load_level(path, with_transition)
 
 func _next_level():
 	# Get current path
@@ -65,23 +65,24 @@ func _load_level(level_path, with_transition = true):
 	
 	if with_transition:
 		var level_transition = LEVEL_TRANSITION.instance()
-		level_transition.set_transition_texts(next_level.level_number, next_level.level_title)
-		
-		# Add level transition
-		Globals.viewport.add_child(level_transition)
-		yield(get_tree(), "idle_frame")
-		
-		# Add open curtain
-		anim_player.play("open curtain")
-		yield(anim_player, "animation_finished")
-		
-		# Wait for 3 secs
-		yield(get_tree().create_timer(3), "timeout")
-		
-		# Close curtain again
-		anim_player.play("close curtain")
-		yield(anim_player, "animation_finished")
-		
+		if next_level.name != "Finish":
+			level_transition.set_transition_texts(next_level.level_number, next_level.level_title)
+			
+			# Add level transition
+			Globals.viewport.add_child(level_transition)
+			yield(get_tree(), "idle_frame")
+			
+			# Add open curtain
+			anim_player.play("open curtain")
+			yield(anim_player, "animation_finished")
+			
+			# Wait for 3 secs
+			yield(get_tree().create_timer(3), "timeout")
+			
+			# Close curtain again
+			anim_player.play("close curtain")
+			yield(anim_player, "animation_finished")
+			
 		# Delete level transition
 		level_transition.queue_free()
 		yield(get_tree(), "idle_frame")

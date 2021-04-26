@@ -16,10 +16,17 @@ func _physics_process(_delta):
 		var collision = get_slide_collision(i)
 		if collision.collider.name == "Spikes":
 			_reset()
+			return
+		if collision.collider.name == "PlayerPass":
+			_reset()
+			return
 	
 	if not is_carried:
 		if is_on_ceiling():
 			velocity.y = 0
+		
+		if is_on_wall():
+			velocity.x = 0
 		
 		if is_on_floor():
 			velocity.y = 0
@@ -33,8 +40,8 @@ func _physics_process(_delta):
 	var _mns = move_and_slide(velocity, - gravity_direction)
 
 func _reset():
-	Globals.root.emit_signal("reset")
 	set_physics_process(false)
+	Globals.root.emit_signal("reset") 
 
 func throw(direction : Vector2):
 	is_carried = false

@@ -22,11 +22,20 @@ func _update(_delta):
 	# Remove 
 	if global_position.y < top_limit:
 		_reset()
+		return
 	
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
 		if collision.collider.name == "Spikes":
 			_reset()
+			return
+		if collision.collider.name == "TreasurePass":
+			_reset()
+			return
+	
+	if Input.is_action_pressed("ui_cancel"):
+		_reset()
+		return
 	
 	direction.x = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
 	velocity.x = direction.x * move_speed
@@ -55,8 +64,8 @@ func _update(_delta):
 	var _mns = move_and_slide(velocity, -gravity_direction)
 
 func _reset():
-	Globals.root.emit_signal("reset")
 	set_physics_process(false)
+	Globals.root.emit_signal("reset")
 
 func change_carry_status():
 	is_carrying = !is_carrying
