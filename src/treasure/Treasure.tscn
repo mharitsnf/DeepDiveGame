@@ -4,17 +4,17 @@
 [ext_resource path="res://src/treasure/treasure.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 8 )
+extents = Vector2( 7.06736, 7.00916 )
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 16.0
 
 [node name="Treasure" type="KinematicBody2D"]
 collision_layer = 4
-collision_mask = 9
+collision_mask = 25
 script = ExtResource( 2 )
 throw_speed = 150
-jump_force = 200
+jump_force = 70
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )

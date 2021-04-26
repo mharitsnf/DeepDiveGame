@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 export var move_speed = 10
 export var jump_force = 50
+export var carryng_jump_force = 50
+
 var gravity_direction = Vector2.UP
 var top_limit = -50
 
@@ -35,7 +37,8 @@ func _update(_delta):
 	if is_on_floor():
 		velocity.y = 0
 		if Input.is_action_pressed("jump"):
-			velocity.y -= jump_force * gravity_direction.y
+			var jf = jump_force if not is_carrying else carryng_jump_force
+			velocity.y -= jf * gravity_direction.y
 	else:
 		velocity.y += Globals.gravity * gravity_direction.y
 		velocity.y = clamp(velocity.y, -400, 400)
