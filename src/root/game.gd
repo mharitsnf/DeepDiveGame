@@ -54,6 +54,10 @@ func _unload_level():
 	
 	# Remove current level from tree
 	Globals.current_level.queue_free()
+	if Globals.viewport.get_child_count() > 1:
+		for child in Globals.viewport.get_children():
+			child.queue_free()
+	
 	yield(get_tree(), "idle_frame")
 	emit_signal("unload_done")
 
