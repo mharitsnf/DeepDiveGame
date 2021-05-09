@@ -13,8 +13,8 @@ radius = 16.0
 collision_layer = 4
 collision_mask = 25
 script = ExtResource( 2 )
-throw_speed = 150
-jump_force = 70
+throw_speed = 200
+jump_force = 100
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -28,4 +28,5 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 2 )
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

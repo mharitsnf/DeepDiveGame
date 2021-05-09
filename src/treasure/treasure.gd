@@ -10,15 +10,16 @@ var is_carried = false
 
 func _ready():
 	Globals.treasure = self
+	var _e = Globals.root.connect("reset", self, "_on_reset")
 
 func _physics_process(_delta):
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
 		if collision.collider.name == "Spikes":
-			_reset()
+			Globals.root.emit_signal("reset") 
 			return
 		if collision.collider.name == "PlayerPass":
-			_reset()
+			Globals.root.emit_signal("reset") 
 			return
 	
 	if not is_carried:
@@ -39,9 +40,8 @@ func _physics_process(_delta):
 			
 	var _mns = move_and_slide(velocity, - gravity_direction)
 
-func _reset():
+func _on_reset():
 	set_physics_process(false)
-	Globals.root.emit_signal("reset") 
 
 func throw(direction : Vector2):
 	is_carried = false

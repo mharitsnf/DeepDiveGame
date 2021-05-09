@@ -12,8 +12,9 @@ collision_layer = 2
 collision_mask = 41
 script = ExtResource( 2 )
 move_speed = 70
-jump_force = 155
-carryng_jump_force = 135
+jump_force = 85
+carrying_jump_force = 75
+coyote_time_frame = 10
 
 [node name="Bubbles" parent="." instance=ExtResource( 3 )]
 

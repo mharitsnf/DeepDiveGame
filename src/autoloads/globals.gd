@@ -7,5 +7,5 @@ var current_level : Node
 var player : KinematicBody2D
 var treasure : KinematicBody2D
 
-var gravity := 3
+var gravity := 5
 

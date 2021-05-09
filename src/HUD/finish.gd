@@ -5,5 +5,5 @@ func _ready():
 
 func _physics_process(_delta):
 	if Input.is_action_pressed("jump"):
-		Globals.root.change_level_to("res://src/levels/Level1.tscn")
+		Globals.root.change_level_to("res://src/HUD/MainMenu.tscn", false)
 		set_physics_process(false)
